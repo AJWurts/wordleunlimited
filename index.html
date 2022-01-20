@@ -8,7 +8,7 @@
     </div>
 
     <div id="results"></div>
-    <node id="guessTextField" />
+    <input id="guessTextField" />
     <div id="errorMessage"></div>
 
     <button onclick="onGuess()">
@@ -19,10 +19,11 @@
       <button onclick="reset()">Reset</button>
     </div>
     <div>Configuration</div>
+
     <div>
       Word Length (Must reset to generate new word)
       <div>
-        <node id="wordLength" type="number" />
+        <input id="wordLength" type="number" />
       </div>
     </div>
   </body>
@@ -95,15 +96,18 @@
       if (guess == selectedWord) {
         document.getElementById("errorMessage").innerHTML =
           "Congrats you guessed the word. Reload the page to play again";
-      } else if (numberOfGuesses > 6) {
+      } else if (numberOfGuesses >= 6) {
         document.getElementById(
           "errorMessage"
         ).innerHTML = `You Ran out of tries, the word was ${selectedWord}. Click reset to try again.`;
-        return;
       }
 
       console.log("yeet");
-      document.getElementById("results").appendChild(createGuessElement(guess));
+      if (numberOfGuesses <= 6) {
+        document
+          .getElementById("results")
+          .appendChild(createGuessElement(guess));
+      }
     }
 
     function selectWord(words) {
