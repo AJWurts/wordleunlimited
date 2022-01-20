@@ -80,8 +80,9 @@
       console.log("yeet", wordLength, guess);
       if (
         guess.length != wordLength ||
-        [...words, ...allWords].find((word) => word == guess.toLowerCase()) ==
-          undefined
+        [...words, ...allWords, selectedWord].find(
+          (word) => word == guess.toLowerCase()
+        ) == undefined
       ) {
         document.getElementById(
           "errorMessage"
