@@ -70,13 +70,14 @@
     function onGuess() {
       const node = document.getElementById("guessTextField");
       var guess = node.value;
-
+      console.log("yeet", wordLength, guess);
       if (
         guess.length != wordLength ||
-        words.find((word) => word == guess.toLowerCase()) == undefined
+        allWords.find((word) => word == guess.toLowerCase()) == undefined
       ) {
-        document.getElementById("errorMessage").innerHTML =
-          "word is not valid, try again";
+        document.getElementById(
+          "errorMessage"
+        ).innerHTML = `${guess} is not valid, try again`;
         node.value = "";
         return;
       } else {
@@ -122,7 +123,14 @@
       .then((text) => {
         words = text.split("\n");
         selectWord(words);
-        console.log(selectedWord);
+      });
+
+    var allWords = [];
+    var text = fetch("all_words.txt")
+      .then((response) => response.text())
+      .then((text) => {
+        allWords = text.split("\n");
+        console.log(allWords.length);
       });
 
     node.addEventListener("keyup", function (event) {
