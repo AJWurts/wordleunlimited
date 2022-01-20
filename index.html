@@ -1,6 +1,12 @@
 <html>
   <body>
-    <h1>Welcome to Wordle Unlimited Light</h1>
+    <div style="font-size: 30; font-weight: 600">
+      Welcome to Wordle Unlimited Light
+    </div>
+    <div style="font-size: 18; font-weight: 600; padding-bottom: 20px">
+      Type a 5 letter word and press enter to get started
+    </div>
+
     <div id="results"></div>
     <input id="guessTextField" />
     <div id="errorMessage"></div>
@@ -105,7 +111,8 @@
         correctLengthWords[
           Math.floor(Math.random() * correctLengthWords.length)
         ];
-      // console.log(selectedWord);
+
+      console.log(correctLengthWords.length);
       return selectedWord;
     }
 
