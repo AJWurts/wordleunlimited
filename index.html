@@ -120,7 +120,6 @@
           Math.floor(Math.random() * correctLengthWords.length)
         ];
 
-      console.log(correctLengthWords.length);
       let encodedWord = window.btoa(selectedWord);
       document.getElementById("shareableLink").innerHTML =
         "http://alexwurts.com/wordleunlimited?word=" + encodedWord;
@@ -148,13 +147,13 @@
         const urlParams = new URLSearchParams(queryString);
 
         const word = urlParams.get("word");
-        console.log(word);
-
         if (word != null) {
           var result = window.atob(word);
-          console.log(result);
 
           selectedWord = result;
+          let encodedWord = window.btoa(selectedWord);
+          document.getElementById("shareableLink").innerHTML =
+            "http://alexwurts.com/wordleunlimited?word=" + encodedWord;
           return;
         }
 
