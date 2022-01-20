@@ -26,6 +26,8 @@
         <input id="wordLength" type="number" />
       </div>
     </div>
+    <div>Shareable Link</div>
+    <div id="shareableLink"></div>
   </body>
 
   <script>
@@ -119,6 +121,9 @@
         ];
 
       console.log(correctLengthWords.length);
+      let encodedWord = window.btoa(selectedWord);
+      document.getElementById("shareableLink").innerHTML =
+        "http://alexwurts.com/wordleunlimited?word=" + encodedWord;
       return selectedWord;
     }
 
@@ -138,6 +143,21 @@
       .then((response) => response.text())
       .then((text) => {
         words = text.split("\n");
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        const word = urlParams.get("word");
+        console.log(word);
+
+        if (word != null) {
+          var result = window.atob(word);
+          console.log(result);
+
+          selectedWord = result;
+          return;
+        }
+
         selectWord(words);
       });
 
