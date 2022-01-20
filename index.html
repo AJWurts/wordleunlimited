@@ -8,7 +8,7 @@
     </div>
 
     <div id="results"></div>
-    <input id="guessTextField" />
+    <node id="guessTextField" />
     <div id="errorMessage"></div>
 
     <button onclick="onGuess()">
@@ -22,7 +22,7 @@
     <div>
       Word Length (Must reset to generate new word)
       <div>
-        <input id="wordLength" type="number" />
+        <node id="wordLength" type="number" />
       </div>
     </div>
   </body>
@@ -119,6 +119,10 @@
     }
 
     const node = document.getElementById("guessTextField");
+    node.setAttribute("autocomplete", "off");
+    node.setAttribute("autocorrect", "off");
+    node.setAttribute("autocapitalize", "off");
+    node.setAttribute("spellcheck", false);
     var wordLength = 5;
     document.getElementById("wordLength").value = wordLength;
 
