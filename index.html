@@ -1,0 +1,134 @@
+<html>
+  <body>
+    <h1>Welcome to Wordle Unlimited Light</h1>
+    <div id="results"></div>
+    <input id="guessTextField" />
+    <div id="errorMessage"></div>
+
+    <button onclick="onGuess()">
+      Enter (you can also press return on keyboard)
+    </button>
+
+    <div>
+      <button onclick="reset()">Reset</button>
+    </div>
+    <div>Configuration</div>
+    <div>
+      Word Length (Must reset to generate new word)
+      <div>
+        <input id="wordLength" type="number" />
+      </div>
+    </div>
+  </body>
+
+  <script>
+    function createGuessElement(guess) {
+      var div = document.createElement("div");
+      div.setAttribute("style", "display:flex");
+      console.log("guessElement");
+
+      for (let i = 0; i < guess.length; i++) {
+        let innerDiv = document.createElement("div");
+        let textDiv = document.createElement("div");
+        textDiv.innerHTML = guess[i].toUpperCase();
+
+        var color = "black";
+        if (selectedWord[i] == guess[i]) {
+          color = "green";
+        } else if (selectedWord.includes(guess[i])) {
+          color = "#b59f3b";
+        }
+
+        innerDiv.setAttribute("style", `background-color:${color};width:50px`);
+        textDiv.setAttribute(
+          "style",
+          "font-size:50;color:white;text-align:center;margin:auto"
+        );
+
+        innerDiv.appendChild(textDiv);
+        div.appendChild(innerDiv);
+      }
+
+      console.log("Returning DIv");
+
+      return div;
+    }
+
+    function reset() {
+      console.log("reset");
+      wordLength = parseInt(document.getElementById("wordLength").value);
+      selectWord(words);
+      document.getElementById("errorMessage").innerHTML = "";
+      const node = (document.getElementById("guessTextField").value = "");
+      var parent = document.getElementById("results");
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+      }
+      numberOfGuesses = 0;
+    }
+
+    function onGuess() {
+      const node = document.getElementById("guessTextField");
+      var guess = node.value;
+
+      if (
+        guess.length != wordLength ||
+        words.find((word) => word == guess.toLowerCase()) == undefined
+      ) {
+        document.getElementById("errorMessage").innerHTML =
+          "word is not valid, try again";
+        node.value = "";
+        return;
+      } else {
+        document.getElementById("errorMessage").innerHTML = "";
+        node.value = "";
+      }
+
+      console.log("yeet");
+      document.getElementById("results").appendChild(createGuessElement(guess));
+      numberOfGuesses++;
+
+      if (guess == selectedWord) {
+        document.getElementById("errorMessage").innerHTML =
+          "Congrats you guessed the word. Reload the page to play again";
+      } else if (numberOfGuesses == 6) {
+        document.getElementById(
+          "errorMessage"
+        ).innerHTML = `You Ran out of tries, the word was ${selectedWord}. Click reset to try again.`;
+      }
+    }
+
+    function selectWord(words) {
+      correctLengthWords = words.filter((word) => word.length == wordLength);
+
+      selectedWord =
+        correctLengthWords[
+          Math.floor(Math.random() * correctLengthWords.length)
+        ];
+      console.log(selectedWord);
+      return selectedWord;
+    }
+
+    const node = document.getElementById("guessTextField");
+    var wordLength = 5;
+    document.getElementById("wordLength").value = wordLength;
+
+    var numberOfGuesses = 0;
+
+    var selectedWord = "";
+    var words = [];
+    var text = fetch("words.txt")
+      .then((response) => response.text())
+      .then((text) => {
+        words = text.split("\n");
+        selectWord(words);
+        console.log(selectedWord);
+      });
+
+    node.addEventListener("keyup", function (event) {
+      if (event.key === "Enter") {
+        onGuess();
+      }
+    });
+  </script>
+</html>

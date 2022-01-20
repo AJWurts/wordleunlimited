@@ -1,0 +1,22 @@
+<html>
+  <body>
+    <h1>Welcome to Wordle Unlimited Light</h1>
+    <div id="results"></div>
+    <input id="guessTextField" />
+  </body>
+
+  <script>
+    const node = document.getElementById("guessTextField");
+
+    var text = fetch("words.txt")
+      .then((response) => response.text())
+      .then((text) => text.split("\n").filter((value) => value.length == 5));
+
+    console.log(text);
+
+    node.addEventListener("keyup", function (event) {
+      if (event.key === "Enter") {
+      }
+    });
+  </script>
+</html>
