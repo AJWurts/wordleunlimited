@@ -141,7 +141,8 @@
           let encodedWord = window.btoa(selectedWord);
           document.getElementById("shareableLink").innerHTML =
             "http://alexwurts.com/wordleunlimited?word=" + encodedWord;
-          wordLength = encodedWord.length;
+          wordLength = selectedWord.length;
+          document.getElementById("wordLength").value = wordLength;
 
           return;
         }
