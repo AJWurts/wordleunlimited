@@ -91,7 +91,7 @@
       if (guess == selectedWord) {
         document.getElementById("errorMessage").innerHTML =
           "Congrats you guessed the word. Reload the page to play again";
-      } else if (numberOfGuesses >= 6) {
+      } else if (numberOfGuesses >= wordLength + 1) {
         document.getElementById(
           "errorMessage"
         ).innerHTML = `You Ran out of tries, the word was ${selectedWord}. Click reset to try again.`;
