@@ -1,19 +1,15 @@
 <html>
   <body>
-    <div style="font-size: 30; font-weight: 600">
-      Welcome to Wordle Unlimited Light
-    </div>
+    <div style="font-size: 30; font-weight: 600">Welcome to Wordle Unlimited Light</div>
     <div style="font-size: 18; font-weight: 600; padding-bottom: 20px">
-      Type a 5 letter word and press enter to get started
+      Type a 5 letter word and press enter to get started.
     </div>
 
     <div id="results"></div>
     <input id="guessTextField" />
     <div id="errorMessage"></div>
 
-    <button onclick="onGuess()">
-      Enter (you can also press return on keyboard)
-    </button>
+    <button onclick="onGuess()">Enter (you can also press return on keyboard)</button>
 
     <div>
       <button onclick="reset()">Reset</button>
@@ -51,10 +47,7 @@
         }
 
         innerDiv.setAttribute("style", `background-color:${color};width:50px`);
-        textDiv.setAttribute(
-          "style",
-          "font-size:50;color:white;text-align:center;margin:auto"
-        );
+        textDiv.setAttribute("style", "font-size:50;color:white;text-align:center;margin:auto");
 
         innerDiv.appendChild(textDiv);
         div.appendChild(innerDiv);
@@ -83,13 +76,9 @@
       console.log("yeet", wordLength, guess);
       if (
         guess.length != wordLength ||
-        [...words, ...allWords, selectedWord].find(
-          (word) => word == guess.toLowerCase()
-        ) == undefined
+        [...words, ...allWords, selectedWord].find((word) => word == guess.toLowerCase()) == undefined
       ) {
-        document.getElementById(
-          "errorMessage"
-        ).innerHTML = `${guess} is not valid, try again`;
+        document.getElementById("errorMessage").innerHTML = `${guess} is not valid, try again`;
         node.value = "";
         return;
       } else {
@@ -109,24 +98,18 @@
       }
 
       console.log("yeet");
-      if (numberOfGuesses <= 6) {
-        document
-          .getElementById("results")
-          .appendChild(createGuessElement(guess));
+      if (numberOfGuesses <= wordLength + 1) {
+        document.getElementById("results").appendChild(createGuessElement(guess));
       }
     }
 
     function selectWord(words) {
       correctLengthWords = words.filter((word) => word.length == wordLength);
 
-      selectedWord =
-        correctLengthWords[
-          Math.floor(Math.random() * correctLengthWords.length)
-        ];
+      selectedWord = correctLengthWords[Math.floor(Math.random() * correctLengthWords.length)];
 
       let encodedWord = window.btoa(selectedWord);
-      document.getElementById("shareableLink").innerHTML =
-        "http://alexwurts.com/wordleunlimited?word=" + encodedWord;
+      document.getElementById("shareableLink").innerHTML = "http://alexwurts.com/wordleunlimited?word=" + encodedWord;
       return selectedWord;
     }
 
@@ -158,6 +141,8 @@
           let encodedWord = window.btoa(selectedWord);
           document.getElementById("shareableLink").innerHTML =
             "http://alexwurts.com/wordleunlimited?word=" + encodedWord;
+          wordLength = encodedWord.length;
+
           return;
         }
 
